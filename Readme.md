@@ -1,12 +1,15 @@
 1. Lenguaje y Librerías Utilizadas
+   
 Lenguaje de Programación: Python 3.11.9
+
 Librerías/Paquetes:
+
 pandas — manejo de DataFrames, JOINs, groupby
 numpy — lógica condicional vectorizada
 openpyxl — lectura y escritura de archivos Excel
 pathlib — manejo robusto de rutas internas del proyecto
 
-2. Estrategia de Implementación
+3. Estrategia de Implementación
 
 Mi enfoque para simular la BBDD fue:
 Usé DataFrames de Pandas para simular tablas en memoria y el método .merge() para realizar cada LEFT JOIN, además de groupby().sum() para agrupar los pagos por RUC.

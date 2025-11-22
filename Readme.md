@@ -9,7 +9,7 @@ numpy — lógica condicional vectorizada
 openpyxl — lectura y escritura de archivos Excel
 pathlib — manejo robusto de rutas internas del proyecto
 
-3. Estrategia de Implementación
+2. Estrategia de Implementación
 
 Mi enfoque para simular la BBDD fue:
 Usé DataFrames de Pandas para simular tablas en memoria y el método .merge() para realizar cada LEFT JOIN, además de groupby().sum() para agrupar los pagos por RUC.
@@ -50,7 +50,7 @@ Utilicé Python porque permite procesar diferentes fuentes (CSV y Excel) de form
 Elegí Pandas porque sus DataFrames permiten simular estructuras tabulares muy parecidas a las de una base de datos, incluyendo joins, filtrados y agrupaciones.
 La combinación de .merge(), .groupby() y .fillna() permite reproducir operaciones comunes de SQL (LEFT JOIN, agregación, manejo de nulos) pero de forma eficiente en memoria.
 
-2. Lógica y Diseño de Cruces
+ Lógica y Diseño de Cruces
 
 Realicé los JOINs en el siguiente orden, siempre usando LEFT JOIN para conservar todos los registros de la tabla maestra (Asignación):
 Asignacion + Demograficos
@@ -64,7 +64,7 @@ El uso de LEFT JOIN asegura que si un cliente no tiene datos en otras tablas, ig
 En el campo MONTO_PAGO_ACUMULADO, manejé los nulos reemplazándolos por 0, dado que un LEFT JOIN produce NaN cuando un cliente no tiene pagos registrados.
 Esto evita errores en cálculos posteriores y aplica la lógica: “si no tiene pagos → pago acumulado = 0”.
 
-3. Retos y Soluciones
+6. Retos y Soluciones
 
 Reto: Manejar correctamente las fechas para calcular DIAS_MORA_ACTUAL.
 Solución: Convertí las columnas FECHA_CORTE y FECHA_VENCIMIENTO a formato datetime con pd.to_datetime(..., errors="coerce"). Esto garantiza que valores no válidos no rompan el código.
@@ -75,6 +75,6 @@ Solución: Todos los archivos proporcionados tenían la columna RUC, lo cual per
 Reto: Construir la salida final con el mismo orden exacto que sabana_final.csv.
 Solución: Leí primero las columnas de sabana_final.csv y generé un DataFrame final respetando 100% ese orden.
 
-4. Aprendizaje
+7. Aprendizaje
 
 Aprendí que Python con Pandas puede funcionar casi como un motor de base de datos, permitiendo hacer JOINs, agregaciones y cálculos igual que en SQL. No sabía que se podía simular todo un proceso ETL completo: extraer datos, limpiarlos, transformarlos y generar una tabla final lista para usar. También reforcé el manejo de fechas, nulos y el orden de columnas. En general, entendí que Python sirve muchísimo para este tipo de procesos y facilita el trabajo con varias fuentes al mismo tiempo.
